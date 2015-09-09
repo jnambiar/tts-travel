@@ -10,4 +10,6 @@
   <% end %>
 </ol>
 
-<%= image_tag 'chile.jpg' %>
+<% @images.each do |image| %>
+  <%= image_tag image, :class => "img-responsive" %>
+<% end %>
