@@ -1,17 +1,18 @@
 class DestinationsController < ApplicationController
+  include DestinationsHelper
+
   before_action :set_destination, only: [:show, :edit, :update, :destroy]
 
   # GET /destinations
   # GET /destinations.json
   def index
     if params[:country]
-      country = params[:country].split('_').map(&:capitalize).join(' ')
-      @destinations = Destination.where(:country => country)
-      @destinations = Destination.where(:country => country.upcase) if @destinations == []
-      @destinations = Destination.where(:country => country.downcase) if @destinations == []
+      @destinations = destinations_in_country params[:country]
     else
       @destinations = Destination.all
     end
+
+    @countries = Destination.pluck(:country).uniq.sort
   end
 
   # GET /destinations/1

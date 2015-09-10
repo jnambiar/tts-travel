@@ -4,9 +4,10 @@
 
 <div class="nav nav-pills" role="tablist">
   <li><%= link_to 'All', destinations_path %></li>
-  <li><%= link_to 'USA', :controller => 'destinations', :country => 'USA' %></li>
-  <li><%= link_to 'New Zealand', :controller => 'destinations', :country => 'new_zealand' %></li>
-  <li><%= link_to 'Peru', :controller => 'destinations', :country => 'peru' %></li>
+  <% @countries.each do |country| %>
+    <% url_safe_country = country.downcase.split(' ').join('_') %>
+    <li><%= link_to country, :controller => 'destinations', :country => url_safe_country %></li>
+  <% end %>
 </div>
 
   <div class="row">
