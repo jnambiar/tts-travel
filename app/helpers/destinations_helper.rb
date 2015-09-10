@@ -5,9 +5,10 @@ module DestinationsHelper
 
   def destinations_in_country(country)
     normalized_country = normalize_country(country)
-    destinations = Destination.where(:country => normalized_country)
-    destinations = Destination.where(:country => normalized_country.upcase) if destinations == []
-    destinations = Destination.where(:country => normalized_country.downcase) if destinations == []
-    destinations
+
+    [:itself, :upcase, :downcase].each do |f|
+      destinations = Destination.where(:country => normalized_country.send(f))
+      return destinations if destinations && destinations != []
+    end
   end
 end
