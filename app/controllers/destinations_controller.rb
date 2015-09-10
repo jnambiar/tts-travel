@@ -6,11 +6,9 @@ class DestinationsController < ApplicationController
   # GET /destinations
   # GET /destinations.json
   def index
-    if params[:country]
-      @destinations = destinations_in_country params[:country]
-    else
-      @destinations = Destination.all
-    end
+    @destinations = params[:country] ?
+      destinations_in_country params[:country] :
+      Destination.all
 
     @countries = Destination.pluck(:country).uniq.sort
   end
