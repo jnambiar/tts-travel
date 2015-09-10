@@ -7,6 +7,8 @@ class DestinationsController < ApplicationController
     if params[:country]
       country = params[:country].split('_').map(&:capitalize).join(' ')
       @destinations = Destination.where(:country => country)
+      @destinations = Destination.where(:country => country.upcase) if @destinations == []
+      @destinations = Destination.where(:country => country.downcase) if @destinations == []
     else
       @destinations = Destination.all
     end
